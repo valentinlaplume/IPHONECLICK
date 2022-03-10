@@ -1,0 +1,13 @@
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Negocio.dll.config
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Negocio.dll
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Negocio.pdb
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Dato.dll
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Entidad.dll
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Dato.pdb
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Dato.dll.config
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\bin\Debug\Entidad.pdb
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\obj\Debug\Negocio.csproj.CopyComplete
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\obj\Debug\Negocio.dll
+C:\Users\valentin\Desktop\IPHONE_CLICK\IPHONE_CLICK\Negocio\obj\Debug\Negocio.pdb
