@@ -15,6 +15,8 @@ namespace IPHONE_CLICK
                        "~/Scripts/fontawesome/all.min.js",
                        "~/Scripts/DataTables/jquery.dataTables.js",
                        "~/Scripts/DataTables/dataTables.responsive.js",
+                       "~/Scripts/loadingoverlay/loadingoverlay.min.js",
+                       "~/Scripts/sweetalert.min.js",
                        "~/Scripts/scripts.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include( // ojo, ver si dejar comentado
@@ -31,7 +33,8 @@ namespace IPHONE_CLICK
             bundles.Add(new Bundle("~/Content/css").Include(
                 "~/Content/site.css",
                 "~/Content/DataTables/css/jquery.dataTables.css",
-                "~/Content/DataTables/css/responsive.dataTables.css"
+                "~/Content/DataTables/css/responsive.dataTables.css",
+                "~/Content/sweetalert.css"
                 ));
         }
     }

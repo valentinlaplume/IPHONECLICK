@@ -41,9 +41,14 @@ namespace Dato
                 while (Lector.Read())
                 {
                     //Lector.GetString(2) == null ? "" : Lector.GetString(2)
-                    listaLeida.Add(new Usuario(Lector.GetInt32(0), Lector.GetString(1), Lector.GetString(2),
-                        Lector.GetString(3), Lector.GetString(4), Lector.GetBoolean(5), Lector.GetBoolean(6))
-                        );
+                    listaLeida.Add(new Usuario(Lector.GetInt32(0),
+                                            Lector.GetString(1),
+                                            Lector.GetString(2),
+                                            Lector.GetString(3), 
+                                            Lector.GetString(4),
+                                            Lector.GetBoolean(5),
+                                            Lector.GetBoolean(6))
+                                            );
                 }
 
                 return listaLeida;
@@ -71,25 +76,27 @@ namespace Dato
                 if (Conexion.State != ConnectionState.Open) { Conexion.Open(); }
 
                 Comando.Parameters.AddWithValue("@Nombre", obj.Nombre);
-                Comando.Parameters.AddWithValue("@Apellido", obj.Nombre);
+                Comando.Parameters.AddWithValue("@Apellido", obj.Apellido);
                 Comando.Parameters.AddWithValue("@Correo", obj.Correo);
                 Comando.Parameters.AddWithValue("@Constraseña", obj.Constraseña);
                 Comando.Parameters.AddWithValue("@Estado", obj.Activo);
 
-                Comando.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                Comando.Parameters.Add("Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
                 Comando.Parameters.Add("Mensaje", SqlDbType.NVarChar, 500).Direction = ParameterDirection.Output;
 
                 Comando.ExecuteNonQuery();
 
+
                 idAutogenerado = Convert.ToInt32(Comando.Parameters["Resultado"].Value);
                 mensaje = Comando.Parameters["Mensaje"].Value.ToString();
+
 
                 return idAutogenerado;
             }
             catch (Exception ex)
             {
                 mensaje = ex.Message;
-                throw new Exception("Fallo al insertar dato. " + ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -100,19 +107,20 @@ namespace Dato
         public bool Editar(Usuario obj, out string mensaje)
         {
             bool resultado = false;
-            mensaje = "";
+            mensaje = string.Empty;
             try
             {
                 Comando.Parameters.Clear();
                 Comando.CommandType = CommandType.StoredProcedure;
-                Comando.CommandText = "sp_RegistrarUsuario";
+                Comando.CommandText = "sp_EditarUsuario";
 
                 if (Conexion.State != ConnectionState.Open) { Conexion.Open(); }
 
+                Comando.Parameters.AddWithValue("@Id", obj.Id);
                 Comando.Parameters.AddWithValue("@Nombre", obj.Nombre);
-                Comando.Parameters.AddWithValue("@Apellido", obj.Nombre);
+                Comando.Parameters.AddWithValue("@Apellido", obj.Apellido);
                 Comando.Parameters.AddWithValue("@Correo", obj.Correo);
-                Comando.Parameters.AddWithValue("@Constraseña", obj.Constraseña);
+                //Comando.Parameters.AddWithValue("@Constraseña", obj.Constraseña);
                 Comando.Parameters.AddWithValue("@Estado", obj.Activo);
 
                 Comando.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
@@ -128,13 +136,43 @@ namespace Dato
             catch (Exception ex)
             {
                 mensaje = ex.Message;
-                throw new Exception("Fallo al insertar dato. " + ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {
                 Conexion.Close();
             }
-        }   
+        }
+
+
+        public bool Eliminar(int id, out string mensaje)
+        {
+            bool resultado = false;
+            mensaje = string.Empty;
+            try
+            {
+                Comando.Parameters.Clear();
+                Comando.CommandType = CommandType.Text;
+                Comando.CommandText = "DELETE TOP (1) FROM USUARIO WHERE Id = @id";
+
+                if (Conexion.State != ConnectionState.Open) { Conexion.Open(); }
+
+                Comando.Parameters.AddWithValue("@id", id); 
+                
+                resultado = Comando.ExecuteNonQuery() > 0 ? true : false;
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Conexion.Close();
+            }
+        }
 
     }
 }

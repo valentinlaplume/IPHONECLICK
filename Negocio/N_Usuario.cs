@@ -21,12 +21,10 @@ namespace Negocio
         public int Registrar(Usuario obj, out string mensaje)
         {
             if (DatoUsuario == null) { DatoUsuario = new D_Usuario(); }
-            mensaje = "";
+            mensaje = string.Empty;
 
-            if(string.IsNullOrEmpty(mensaje))
-            {
-                mensaje = "insertamos";
-            }
+            string clave = "clave123";
+            obj.Constraseña = N_Recursos.ConvertirSha256(clave);
 
             return DatoUsuario.Registrar(obj, out mensaje);
         }
@@ -34,8 +32,15 @@ namespace Negocio
         public bool Editar(Usuario obj, out string mensaje)
         {
             if (DatoUsuario == null) { DatoUsuario = new D_Usuario(); }
+            mensaje = string.Empty;
 
             return DatoUsuario.Editar(obj, out mensaje);
+        }
+
+        public bool Eliminar(int id, out string mensaje)
+        {
+            return DatoUsuario.Eliminar(id, out mensaje);
+
         }
     }
 

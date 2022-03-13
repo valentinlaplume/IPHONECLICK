@@ -8,7 +8,7 @@ namespace Entidad
 {
     public class Usuario
     {
-        int idUsuario;
+        int id;
         string nombre;
         string apellido;
         string correo;
@@ -16,9 +16,13 @@ namespace Entidad
         bool restablecer;
         bool activo;
 
-        public Usuario(int idUsuario, string nombre, string apellido, string correo, string constraseña, bool restablecer, bool activo)
+        public Usuario()
         {
-            this.idUsuario = idUsuario;
+        }
+
+        public Usuario(int id, string nombre, string apellido, string correo, string constraseña, bool restablecer, bool activo)
+        {
+            this.id = id;
             this.nombre = nombre;
             this.apellido = apellido;
             this.correo = correo;
@@ -27,7 +31,7 @@ namespace Entidad
             this.activo = activo;
         }
 
-        public int IdUsuario { get => idUsuario; set => idUsuario = value; }
+        public int Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }
         public string Correo { get => correo; set => correo = value; }
