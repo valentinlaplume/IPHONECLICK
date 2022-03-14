@@ -78,7 +78,7 @@
                         <option value="0">NO</option>
                     </select>
 
-                    <div class="alert alert-danger mt-3" role="alert" id="idMsjError"></div>
+                    <div class="alert alert-danger mt-3" role="alert" id="idMsjModalError"></div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -101,7 +101,7 @@
         function CloseLoading() { $(".modal-body").LoadingOverlay("hide"); }
 
         $(document).ready(function () {
-            $("#idMsjError").hide();
+            $("#idMsjModalError").hide();
             $("#idMsjSucces").hide();
         });
 
@@ -122,9 +122,9 @@
                 {
                     "data": "Activo", "render": function (data) {
                         if (data) {
-                            return '<span class="badge bg-success">SI</span>'
+                            return '<span class="badge bg-success">Si</span>'
                         } else {
-                            return '<span class="badge bg-danger">NO</span>'
+                            return '<span class="badge bg-danger">No</span>'
                         }
                     }
                 },
@@ -138,7 +138,7 @@
                 },
                 {
                     "defaultContent":
-                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                        '<button type="button" class="btn btn-danger btn-sm btn-eliminar"><i class="fas fa-trash"></i></button>',
                     "orderable": false,
                     "searcheable": false,
                     "width": "70px"
@@ -167,26 +167,45 @@
         });
 
         $("#grid tbody").on('click', '.btn-eliminar', function () {
+            $("#idMsjSucces").hide();
             var seleccionado = $(this).closest("tr");
-
             var json = gridData.row(seleccionado).data();
-
 
             swal({
                 title: "¿Está seguro de eliminar el usuario?",
-                //text: "¿Desea eliminar el usuario?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
                 confirmButtonText: "Si",
                 cancelButtonText: "No",
-                closeOnConfirm: false
+                closeOnConfirm: true
             },
                 function () {
-                    swal("Eliminado!", "El usuario ha sido eliminado.", "success");
+                    jQuery.ajax({
+                        url: '@Url.Action("EliminarUsuario", "Home")',
+                        type: "POST",
+                        data: JSON.stringify({ id: json.Id }),
+                        dataType: "json",
+                        contentType: "application/json; charset-utf-8",
+                        success: function (data) {
+                            CloseLoading();
+                            if (data.resultado) {
+                                gridData.row(seleccionado).remove().draw();
+                                $("#idMsjSucces").text("El usuario fue eliminado correctamente.");
+                                $("#idMsjSucces").show();
+                            } else {
+                                swal("No se pudo eliminar.", data.mensaje, "error");
+                            }
+                        },
+                        error: function (error) {
+                            swal("No se pudo eliminar.", data.mensaje, "error");
+                            CloseLoading();
+                        },
+                        beforeSend: function () {
+                            OpenLoading();
+                        }
+                    });
                 });
-
-
 
             console.log(json);
         });
@@ -194,17 +213,15 @@
         $("#grid tbody").on('click', '.btn-editar', function () {
             //llamo a la tabla, hace referencia a this porque es su evento
             filaSeleccionada = $(this).closest("tr");
-
             var json = gridData.row(filaSeleccionada).data();
-
             OpenModal(json);
         });
 
-        
+
 
         function OpenModal(data) {
             $("#idMsjSucces").hide();
-            $("#idMsjError").hide();
+            $("#idMsjModalError").hide();
 
             if (data == null) { // Nuevo
                 $("#idUsuario").val(0);
@@ -229,34 +246,31 @@
             var correo = $("#idCorreo").val();
 
             if (nombre == "" || nombre == null || apellido == "" || apellido == null || correo == "" || correo == null) {
-                $("#idMsjError").text("Los campos asignados se encuentran vacíos. Verifique");
-                $("#idMsjError").show();
+                $("#idMsjModalError").text("Los campos asignados se encuentran vacíos. Verifique");
+                $("#idMsjModalError").show();
                 return false;
             }
 
             if (nombre == "" || nombre == null) {
-                $("#idMsjError").text("El nombre ingresado es inválido. Verifique");
-                $("#idMsjError").show();
+                $("#idMsjModalError").text("El nombre ingresado es inválido. Verifique");
+                $("#idMsjModalError").show();
                 return false;
             }
 
             if (apellido == "" || apellido == null) {
-                $("#idMsjError").text("El apellido ingresado es inválido. Verifique");
-                $("#idMsjError").show();
+                $("#idMsjModalError").text("El apellido ingresado es inválido. Verifique");
+                $("#idMsjModalError").show();
                 return false;
             }
 
             if (correo == "" || correo == null) {
-                $("#idMsjError").text("El correo ingresado es inválido. Verifique");
-                $("#idMsjError").show();
+                $("#idMsjModalError").text("El correo ingresado es inválido. Verifique");
+                $("#idMsjModalError").show();
                 return false;
             }
 
             return true;
         }
-
-
-
 
 
         function Guardar() {
@@ -286,8 +300,8 @@
                             $("#idMsjSucces").text(data.mensaje);
                             $("#idMsjSucces").show();
                         } else {
-                            $("#idMsjError").text(data.mensaje);
-                            $("#idMsjError").show();
+                            $("#idMsjModalError").text(data.mensaje);
+                            $("#idMsjModalError").show();
                         }
                     } else { // EDITAR
                         if (data.resultado) {
@@ -296,15 +310,15 @@
                             $("#idMsjSucces").text(data.mensaje);
                             $("#idMsjSucces").show();
                         } else {
-                            $("#idMsjError").text(data.mensaje);
-                            $("#idMsjError").show();
+                            $("#idMsjModalError").text(data.mensaje);
+                            $("#idMsjModalError").show();
                         }
                     }
                 },
                 error: function (error) {
                     CloseLoading();
-                    $("#idMsjError").text("Ocurrió un error.");
-                    $("#idMsjError").show();
+                    $("#idMsjModalError").text("Ocurrió un error.");
+                    $("#idMsjModalError").show();
                 },
                 beforeSend: function () {
                     OpenLoading();

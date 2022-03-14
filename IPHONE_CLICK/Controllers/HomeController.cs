@@ -49,5 +49,21 @@ namespace IPHONE_CLICK.Controllers
             return Json(new { resultado = resultado, 
                               mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult EliminarUsuario(int id)
+        {
+            bool respuesta = false;
+            string mensaje = string.Empty;
+            if (nUsuario == null) { nUsuario = new N_Usuario(); }
+
+            respuesta = nUsuario.Eliminar(id, out mensaje);
+
+            return Json(new
+            {
+                resultado = respuesta,
+                mensaje = mensaje
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

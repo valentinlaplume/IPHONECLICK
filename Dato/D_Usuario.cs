@@ -40,11 +40,10 @@ namespace Dato
                 Lector = Comando.ExecuteReader();
                 while (Lector.Read())
                 {
-                    //Lector.GetString(2) == null ? "" : Lector.GetString(2)
                     listaLeida.Add(new Usuario(Lector.GetInt32(0),
                                             Lector.GetString(1),
                                             Lector.GetString(2),
-                                            Lector.GetString(3), 
+                                            Lector.GetString(3), //ta.Activo == true ? 1 : 0
                                             Lector.GetString(4),
                                             Lector.GetBoolean(5),
                                             Lector.GetBoolean(6))
