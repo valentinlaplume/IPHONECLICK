@@ -23,6 +23,8 @@ namespace Negocio
             mensaje = string.Empty;
             if (DatoUsuario == null) { DatoUsuario = new D_Usuario(); }
 
+            if(DatoUsuario.GetUsuarios().Any(x => x.Correo == obj.Correo)) { mensaje = "El correo del Usuario ya existe."; return 0; }
+            
             string clave = N_Recursos.GenerarClave();
             string asunto = "Creacion de Cuenta en Iphone Click";
             string mensaje_correo = "<h3>Su cuenta fue creada correctamente</h3></br><p>Su contraseña para acceder es: !clave!</p>";
@@ -35,7 +37,7 @@ namespace Negocio
                 return DatoUsuario.Registrar(obj, out mensaje);
             }
 
-            mensaje = "No se puede enviar el correo";
+            mensaje = "No se puede enviar el correo con la contraseña única autogenerada.";
             return 0;
         }
 

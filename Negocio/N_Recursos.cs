@@ -14,7 +14,7 @@ namespace Negocio
     {
         public static string GenerarClave()
         {
-            string clave = Guid.NewGuid().ToString("N").Substring(0, 8);
+            string clave = Guid.NewGuid().ToString("N").Substring(0, 10);
             return clave;
         }
 

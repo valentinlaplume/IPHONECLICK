@@ -8,7 +8,17 @@
     @Styles.Render("~/Content/css")
     @*@Scripts.Render("~/bundles/modernizr")*@
 </head>
+
+
+
 <body class="sb-nav-fixed">
+    <style>
+        .sb-sidenav-dark {
+            /*background-color: #000000;*/
+        }
+
+
+    </style>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="@Url.Action("Index", "Home")">
@@ -20,11 +30,11 @@
         <!-- Sidebar Toggle-->
         <!-- Navbar Search-->
         @*<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>*@
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>*@
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
             <li class="nav-item dropdown">
@@ -48,7 +58,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="@Url.Action("Usuarios", "Home")">
+                        <a class="nav-link" href="@Url.Action("Index", "Usuario")">
                             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Usuarios
                         </a>
@@ -97,15 +107,15 @@
                             </div>*@
 
                         <div class="sb-sidenav-menu-heading">Mantenimiento</div>
-                        <a class="nav-link" href="@Url.Action("Categorias", "Mantenedor")">
+                        <a class="nav-link" href="@Url.Action("Index", "Categoria")">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Categorias
                         </a>
-                        <a class="nav-link" href="@Url.Action("Marcas", "Mantenedor")">
+                        <a class="nav-link" href="@Url.Action("Index", "Marca")">
                             <div class="sb-nav-link-icon"><i class="fas fa-bookmark"></i></div>
                             Marcas
                         </a>
-                        <a class="nav-link" href="@Url.Action("Productos", "Mantenedor")">
+                        <a class="nav-link" href="@Url.Action("Index", "Producto")">
                             <div class="sb-nav-link-icon"><i class="fas fa-boxes"></i></div>
                             Productos
                         </a>
